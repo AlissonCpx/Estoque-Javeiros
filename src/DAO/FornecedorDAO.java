@@ -73,6 +73,63 @@ public class FornecedorDAO {
         
         return lista;
     }
+
+    public boolean deletar(Fornecedor f) {
+      Connection con = new Conexao().getConnection();
+        PreparedStatement stmt;
+        
+        try {
+            String sql;
+          sql = "delete from fornecedor where cod_fornecedor = ?";
+            
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, f.getCod());
+           
+            
+            stmt.execute();
+            con.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;  
+    }
+
+    public boolean atualizar(Fornecedor f) {
+     Connection con = new Conexao().getConnection();
+        PreparedStatement stmt;
+        
+        try {
+            String sql = "update fornecedor set cnpj_fornecedor = ?, nome_fornecedor = ?, end_fornecedor = ?, num_fornecedor = ?, compl_fornecedor = ?, bairro_fornecedor = ?, cep_fornecedor = ?, fone_fornecedor = ? where cod_fornecedor = ?";
+            
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, f.getCnpj());
+            stmt.setString(2, f.getNome());
+            stmt.setString(3, f.getEndereco());
+            stmt.setString(4, f.getNumero());
+            stmt.setString(5, f.getComplemento());
+            stmt.setString(6, f.getBairro());
+            stmt.setString(7, f.getCep());
+            stmt.setString(8, f.getFone());
+            
+            
+            
+            stmt.setInt(9, f.getCod());
+           
+            
+            stmt.execute();
+            con.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+        
+        
+        
+    }
     
     
 }

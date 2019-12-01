@@ -50,7 +50,6 @@ public class TelaFornecedor extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         ftel = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         btIncluir = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -65,6 +64,8 @@ public class TelaFornecedor extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(900, 700));
 
+        fcod.setEditable(false);
+        fcod.setBackground(new java.awt.Color(204, 204, 204));
         fcod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fcodActionPerformed(evt);
@@ -137,8 +138,6 @@ public class TelaFornecedor extends javax.swing.JFrame {
 
         jLabel9.setText("TELEFONE");
 
-        jButton1.setText("Pesquisar");
-
         btIncluir.setText("Incluir");
         btIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,18 +145,44 @@ public class TelaFornecedor extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(153, 153, 153));
+        jButton3.setForeground(new java.awt.Color(255, 0, 0));
         jButton3.setText("Excluir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eDeletarActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Alterar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eAtualizarActionPerformed(evt);
+            }
+        });
 
+        ftab.setBorder(new javax.swing.border.MatteBorder(null));
         ftab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "CÓDIGO", "CNPJ", "NOME", "ENDEREÇO", "NÚMERO", "BAIRRO", "COMPLEMENTO", "CEP", "TELEFONE"
+                "CÓDIGO", "CNPJ", "NOME", "ENDEREÇO", "NÚMERO", "COMPLEMENTO", "BAIRRO", "CEP", "TELEFONE"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        ftab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ftabMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(ftab);
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/fornecedores.png"))); // NOI18N
@@ -174,7 +199,7 @@ public class TelaFornecedor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 5, Short.MAX_VALUE))
+                        .addContainerGap(15, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -188,7 +213,7 @@ public class TelaFornecedor extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fcom))
+                                .addComponent(fcom, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -212,23 +237,22 @@ public class TelaFornecedor extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fcod, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(fcod, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addGap(98, 98, 98)
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(45, 45, 45)
+                                .addGap(13, 13, 13)
                                 .addComponent(btIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(46, 46, 46)
+                                .addGap(131, 131, 131)
+                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(134, 134, 134)
                                 .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(43, 43, 43)
-                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap())
+                                .addGap(32, 32, 32))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,7 +301,6 @@ public class TelaFornecedor extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(ftel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)
                             .addComponent(btIncluir)
                             .addComponent(jButton3)
                             .addComponent(jButton4))))
@@ -290,10 +313,6 @@ public class TelaFornecedor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void fcodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fcodActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fcodActionPerformed
 
     private void fcnpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fcnpActionPerformed
         // TODO add your handling code here:
@@ -342,6 +361,46 @@ public class TelaFornecedor extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btIncluirActionPerformed
 
+    private void eDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eDeletarActionPerformed
+        if(!"".equals(fcod.getText())){
+            if(JOptionPane.showConfirmDialog(this, "Deseja Excluir esse Fornecedor?") == 0){
+                if(control.deletar()){
+                    exibirNaTab(control.selecionarTodos());
+                    limparForm();
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Falha ao Excluir Fornecedor");
+                }
+            }
+        }
+        else JOptionPane.showMessageDialog(this, "Selecione um Fornecedor na Tabela");
+    }//GEN-LAST:event_eDeletarActionPerformed
+
+    private void ftabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ftabMouseClicked
+      selecionarDaTab();
+    }//GEN-LAST:event_ftabMouseClicked
+
+    private void eAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eAtualizarActionPerformed
+        if(!"".equals(fcod.getText()) ){
+            if(control.atualizar()){
+                exibirNaTab(control.selecionarTodos());
+                limparForm();
+                JOptionPane.showMessageDialog(this, "Dado Atualizado");
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Falha na Ateração");
+            }
+            
+        }
+        else JOptionPane.showMessageDialog(this, "Selecione um Fornecedor na Tabela");
+
+
+    }//GEN-LAST:event_eAtualizarActionPerformed
+
+    private void fcodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fcodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fcodActionPerformed
+
     // METODOS
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -385,7 +444,7 @@ public class TelaFornecedor extends javax.swing.JFrame {
     // le os dados do formulario e retorna um objeto Fornecedor
     public Fornecedor lerForm(){
         Fornecedor f = new Fornecedor();
-        f.setCod( 0 );
+        f.setCod( Integer.valueOf("0" +fcod.getText()) );
         f.setCnpj(fcnp.getText() );
         f.setNome(fnom.getText() );
         f.setEndereco( fend.getText() );
@@ -446,7 +505,6 @@ public class TelaFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField fnum;
     private javax.swing.JTable ftab;
     private javax.swing.JTextField ftel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
@@ -463,4 +521,29 @@ public class TelaFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
+
+    private void limparForm() {
+        fcod.setText( "" );
+        fcnp.setText( "" );
+        fnom.setText( "" );
+        fend.setText( "" );
+        fnum.setText( "" );
+        fbai.setText("");
+        fcom.setText("");
+        fcep.setText("");
+        ftel.setText("");
+    }
+
+    private void selecionarDaTab() {
+        int linha = ftab.getSelectedRow();
+        fcod.setText(ftab.getModel().getValueAt(linha, 0).toString());
+        fcnp.setText(ftab.getModel().getValueAt(linha, 1).toString());
+        fnom.setText(ftab.getModel().getValueAt(linha, 2).toString());
+        fend.setText(ftab.getModel().getValueAt(linha, 3).toString());
+        fnum.setText(ftab.getModel().getValueAt(linha, 4).toString());
+        fbai.setText(ftab.getModel().getValueAt(linha, 5).toString());
+        fcom.setText(ftab.getModel().getValueAt(linha, 6).toString());
+        fcep.setText(ftab.getModel().getValueAt(linha, 7).toString());
+        ftel.setText(ftab.getModel().getValueAt(linha, 8).toString());
+    }
 }

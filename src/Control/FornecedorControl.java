@@ -4,6 +4,7 @@ package Control;
 import DAO.FornecedorDAO;
 import View.TelaFornecedor;
 import Model.Fornecedor;
+import Model.Produto;
 import java.util.List;
 
 public class FornecedorControl {
@@ -23,5 +24,17 @@ public class FornecedorControl {
     
     public List<Fornecedor> selecionarTodos(){
         return dao.selecionarTodos();
+    }
+
+    public boolean deletar() {
+        Fornecedor fo = view.lerForm();
+        
+        return dao.deletar(fo);      
+    }
+
+    public boolean atualizar() {
+        Fornecedor fo = view.lerForm();
+        
+        return dao.atualizar(fo);      
     }
 }
